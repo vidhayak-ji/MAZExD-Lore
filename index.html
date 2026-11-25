@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MAZE xD — Official Stream Lore Archive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f2f2f2;
+      --bg-hover: #e5e5e5;
+      --text-primary: #0f0f0f;
+      --text-secondary: #606060;
+      --border-color: #e5e5e5;
+      --accent-purple: #7c3aed;
+      --accent-red: #ff0000;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    /* Top Sticky Navigation Bar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+      border-bottom: 1px solid var(--border-color);
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 900;
+      font-size: 18px;
+      letter-spacing: -0.5px;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .brand-badge {
+      background: var(--accent-red);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .search-wrapper {
+      flex: 1;
+      max-width: 540px;
+      display: flex;
+      align-items: center;
+      background: var(--bg-primary);
+      border: 1px solid #ccc;
+      border-radius: 40px;
+      padding: 6px 16px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .search-wrapper:focus-within {
+      border-color: #1c62b9;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .search-wrapper input {
+      width: 100%;
+      border: none;
+      outline: none;
+      font-size: 15px;
+      background: transparent;
+      color: var(--text-primary);
+    }
+
+    .yt-link-btn {
+      background: #0f0f0f;
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 20px;
+      white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+
+    .yt-link-btn:hover {
+      opacity: 0.85;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 24px 60px;
+    }
+
+    /* Channel Header (Matching Screenshot Layout in White Mode) */
+    .channel-header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .avatar {
+      width: 136px;
+      height: 136px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent-purple);
+      flex-shrink: 0;
+      background: #eee;
+    }
+
+    .channel-info h1 {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .channel-meta {
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin: 4px 0 8px;
+    }
+
+    .channel-bio {
+      color: var(--text-secondary);
+      font-size: 14px;
+      max-width: 650px;
+      margin-bottom: 12px;
+    }
+
+    .channel-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill-btn {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-dark {
+      background: #0f0f0f;
+      color: #ffffff;
+    }
+
+    .pill-light {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+    }
+
+    .pill-light:hover {
+      background: var(--bg-hover);
+    }
+
+    /* YouTube Style Tabs */
+    .tabs-bar {
+      display: flex;
+      gap: 24px;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 16px;
+      overflow-x: auto;
+    }
+
+    .tab {
+      padding: 12px 4px;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+    }
+
+    .tab.active {
+      color: var(--text-primary);
+      border-bottom: 2px solid var(--text-primary);
+    }
+
+    /* Filter Chips (Latest, Iconic Lores, Omegle, etc.) */
+    .chips-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border: none;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .chip:hover {
+      background: var(--bg-hover);
+    }
+
+    .chip.active {
+      background: #0f0f0f;
+      color: #ffffff;
+    }
+
+    /* Video / Lore Grid (3 Columns like Screenshot) */
+    .lore-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px 16px;
+    }
+
+    .lore-card {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      border-radius: 12px;
+      transition: transform 0.15s ease;
+    }
+
+    .lore-card:hover .thumb-img {
+      border-radius: 0px;
+    }
+
+    .thumb-box {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #e5e5e5;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .thumb-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      transition: border-radius 0.2s ease;
+    }
+
+    .duration-badge {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(0, 0, 0, 0.82);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .lore-tag-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: var(--accent-purple);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-lore-summary {
+      font-size: 13.5px;
+      color: #333;
+      background: #f8f8f8;
+      border-left: 3px solid var(--accent-purple);
+      padding: 8px 10px;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 8px;
+    }
+
+    .card-meta {
+      font-size: 13px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .watch-cta {
+      color: #065fd4;
+      font-weight: 500;
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-secondary);
+      display: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-size: 13px;
+    }
+
+    /* Responsive Mobile & Tablet */
+    @media (max-width: 960px) {
+      .lore-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .channel-header {
+        flex-direction: column;
+        text-align: center;
+      }
+      .channel-actions {
+        justify-content: center;
+      }
+      .lore-grid {
+        grid-template-columns: 1fr;
+      }
+      .navbar {
+        padding: 10px 14px;
+      }
+      .yt-link-btn {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <nav class="navbar">
+    <a href="#" class="brand">
+      <span>MAZE xD LORE</span>
+      <span class="brand-badge">Archive</span>
+    </a>
+
+    <div class="search-wrapper">
+      <input type="text" id="searchInput" placeholder="Search girl name, lore, Omegle episode, or stream..." />
+    </div>
+
+    <a href="https://www.youtube.com/@MAZE_xD/streams" target="_blank" rel="noopener" class="yt-link-btn">
+      YouTube Channel ↗
+    </a>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container">
+
+    <!-- Channel Header -->
+    <section class="channel-header">
+      <!-- Replace src with MAZE xD's profile photo URL or local image file name like "avatar.jpg" -->
+      <img
+        src="https://yt3.googleusercontent.com/ytc/AIdro_k_placeholder_replace_me"
+        onerror="this.src='https://ui-avatars.com/api/?name=MAZE+xD&background=7c3aed&color=fff&size=256&bold=true'"
+        alt="MAZE xD Avatar"
+        class="avatar"
+      />
+      <div class="channel-info">
+        <h1>MAZE xD</h1>
+        <div class="channel-meta">@MAZE_xD • Community Lore & Stream Directory • 100% Free & Ad-Free</div>
+        <p class="channel-bio">
+          Missed a stream or confused about who a girl from Omegle / Discord is? Click any lore card below to jump directly to the full YouTube Live VOD without spoilers or timestamps.
+        </p>
+        <div class="channel-actions">
+          <a href="https://www.youtube.com/@MAZE_xD" target="_blank" rel="noopener" class="pill-btn pill-dark">Subscribe on YouTube</a>
+          <a href="https://dsc.gg/mazexd" target="_blank" rel="noopener" class="pill-btn pill-light">Discord (dsc.gg/mazexd)</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <div class="tabs-bar">
+      <button class="tab active" data-category="all">All Lores</button>
+      <button class="tab" data-category="omegle">Omegle Lores</button>
+      <button class="tab" data-category="iconic">Iconic Characters</button>
+      <button class="tab" data-category="special">Special Streams</button>
+    </div>
+
+    <!-- Quick Filter Chips -->
+    <div class="chips-bar" id="chipsContainer">
+      <button class="chip active" data-filter="all">Latest</button>
+      <button class="chip" data-filter="omegle">Omegle / Monkey</button>
+      <button class="chip" data-filter="iconic">Recurring Girls</button>
+      <button class="chip" data-filter="special">GTA / IRL / Bday</button>
+    </div>
+
+    <!-- Lore Grid -->
+    <section class="lore-grid" id="loreGrid"></section>
+
+    <div class="empty-state" id="emptyState">
+      <h3>No matching lore found</h3>
+      <p>Try searching another name, keyword, or click "All Lores" above.</p>
+    </div>
+
+  </main>
+
+  <footer>
+    Fan-made non-profit archive for MAZE xD viewers • No ads, no monetization • Click any card to watch on YouTube.
+  </footer>
+
+  <!-- ===================================================================== -->
+  <!--  EASY EDIT ZONE: ADD OR UPDATE YOUTUBE STREAMS & LORES BELOW          -->
+  <!-- ===================================================================== -->
+  <script>
+    const LORE_DATABASE = [
+      {
+        characterOrTag: "Omegle Lore #1",
+        title: "The Mystery Girl from Late Night Omegle Stream",
+        loreSummary: "Who is she: Met during the 2 AM Omegle session; talked for over an hour and promised to join the next stream.",
+        youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        duration: "5:34:14",
+        date: "Streamed 2 days ago",
+        category: "omegle"
+      },
+      {
+        characterOrTag: "Birthday Lore",
+        title: "BDAY PARTY STREAM — Late Night Calls & Surprises",
+        loreSummary: "Who is she: Special birthday call guest who surprised MAZE xD mid-stream and revealed past stream backstory.",
+        youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        duration: "5:35:40",
+        date: "Streamed 5 days ago",
+        category: "special"
+      },
+      {
+        characterOrTag: "Recurring Lore",
+        title: "First Appearance of the Delhi Discord Duo",
+        loreSummary: "Who is she: Originally matched on Omegle, later became a recurring Discord mod/guest across multiple streams.",
+        youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        duration: "5:51:26",
+        date: "Streamed 6 days ago",
+        category: "iconic"
+      }
+    ];
+
+    /* ===================================================================== */
+    /*  AUTOMATIC THUMBNAIL & RENDER ENGINE (DO NOT NEED TO TOUCH THIS)      */
+    /* ===================================================================== */
+
+    function extractYouTubeID(url) {
+      const regExp = /(?:youtube\.com\/(?:watch\?v=|live\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+      const match = url.match(regExp);
+      return match ? match[1] : null;
+    }
+
+    const grid = document.getElementById("loreGrid");
+    const emptyState = document.getElementById("emptyState");
+    const searchInput = document.getElementById("searchInput");
+
+    let activeCategory = "all";
+    let searchQuery = "";
+
+    function renderLores() {
+      grid.innerHTML = "";
+
+      const filtered = LORE_DATABASE.filter(item => {
+        const matchesCategory = activeCategory === "all" || item.category === activeCategory;
+        const textToSearch = `${item.characterOrTag} ${item.title} ${item.loreSummary} ${item.date}`.toLowerCase();
+        const matchesSearch = textToSearch.includes(searchQuery.toLowerCase().trim());
+        return matchesCategory && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        emptyState.style.display = "block";
+        return;
+      } else {
+        emptyState.style.display = "none";
+      }
+
+      filtered.forEach(item => {
+        const videoId = extractYouTubeID(item.youtubeUrl);
+        // Automatically pulls the official HD YouTube thumbnail from the link!
+        const thumbnailUrl = videoId
+          ? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`
+          : "https://via.placeholder.com/640x360?text=MAZE+xD+Stream";
+
+        const card = document.createElement("a");
+        card.className = "lore-card";
+        card.href = item.youtubeUrl;
+        card.target = "_blank";
+        card.rel = "noopener noreferrer";
+
+        card.innerHTML = `
+          <div class="thumb-box">
+            <img
+              src="${thumbnailUrl}"
+              onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${videoId}/hqdefault.jpg';"
+              alt="${item.title}"
+              class="thumb-img"
+              loading="lazy"
+            />
+            <span class="lore-tag-badge">${item.characterOrTag}</span>
+            <span class="duration-badge">${item.duration}</span>
+          </div>
+          <h3 class="card-title">${item.title}</h3>
+          <p class="card-lore-summary">${item.loreSummary}</p>
+          <div class="card-meta">
+            <span>${item.date}</span>
+            <span class="watch-cta">Watch Full Live ↗</span>
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+    }
+
+    // Search Listener
+    searchInput.addEventListener("input", (e) => {
+      searchQuery = e.target.value;
+      renderLores();
+    });
+
+    // Tab & Chip Filter Sync
+    function setCategory(cat) {
+      activeCategory = cat;
+      document.querySelectorAll(".tab").forEach(t => {
+        t.classList.toggle("active", t.dataset.category === cat);
+      });
+      document.querySelectorAll(".chip").forEach(c => {
+        c.classList.toggle("active", c.dataset.filter === cat);
+      });
+      renderLores();
+    }
+
+    document.querySelectorAll(".tab").forEach(tab => {
+      tab.addEventListener("click", () => setCategory(tab.dataset.category));
+    });
+
+    document.querySelectorAll(".chip").forEach(chip => {
+      chip.addEventListener("click", () => setCategory(chip.dataset.filter));
+    });
+
+    // Initial Render
+    renderLores();
+  </script>
+</body>
+</html>
